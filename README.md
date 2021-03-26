@@ -10,12 +10,21 @@ Qiscus Meet is a WebRTC compatible, free and Open Source video conferencing syst
 * Note: Example compilable with XCode 12.2 & Flutter 1.22.4.
 
 #### Podfile
-Ensure in your Podfile you have an entry like below declaring platform of 11.0 or above.
+Ensure in your Podfile you have an entry like below declaring platform of 12.0 or above, ENABLE_BITCODE = NO, and IPHONEOS_DEPLOYMENT_TARGET = 12.0.
 ```
 platform :ios, '12.0'
+...
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+  target.build_configurations.each do |config|
+  config.build_settings['ENABLE_BITCODE'] = 'NO'
+  config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+  end
+end
+end
 ```
-Pod :
-Set Bitcode to No for qiscus_meet
 #### Info.plist
 Add NSCameraUsageDescription and NSMicrophoneUsageDescription to your
 Info.plist.
