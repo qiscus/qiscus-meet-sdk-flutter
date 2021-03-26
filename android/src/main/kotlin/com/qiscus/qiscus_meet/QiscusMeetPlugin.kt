@@ -142,8 +142,11 @@ class QiscusMeetPlugin(): FlutterPlugin, MethodCallHandler ,ActivityAware {
         if (value is Boolean) {
           val boolVal = value.toString().toBoolean()
           optionsBuilder.setFeatureFlag(key, boolVal)
-        } else {
+        } else if (value is Int) {
           val intVal = value.toString().toInt()
+          optionsBuilder.setFeatureFlag(key, intVal)
+        } else if (value is String){
+          val intVal = value.toString().toString()
           optionsBuilder.setFeatureFlag(key, intVal)
         }
       }

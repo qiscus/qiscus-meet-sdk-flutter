@@ -137,7 +137,7 @@ class _MyAppState extends State<MyApp> {
             roomText.text,
             nameText.text,
             "https://d1.awsstatic.com/events/aws-hosted-events/2020/APAC/case-studies/case-study-logo-qiscus.5433a4b9da2693dd49766a971aac887ece8c6d18.png",
-            "Qiscus Meet : ${roomText.text}",
+            "Qiscus Meet: ${roomText.text.toString()}",
             false)
         .build();
   }
