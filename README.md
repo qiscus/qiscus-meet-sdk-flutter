@@ -12,9 +12,10 @@ Qiscus Meet is a WebRTC compatible, free and Open Source video conferencing syst
 #### Podfile
 Ensure in your Podfile you have an entry like below declaring platform of 11.0 or above.
 ```
-platform :ios, '11.0'
+platform :ios, '12.0'
 ```
-
+Pod :
+Set Bitcode to No for qiscus_meet
 #### Info.plist
 Add NSCameraUsageDescription and NSMicrophoneUsageDescription to your
 Info.plist.
