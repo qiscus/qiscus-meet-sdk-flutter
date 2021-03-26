@@ -24,7 +24,7 @@ class MeetInfo {
   var displayName = "guest";
   var avatar = "";
   var type = QiscusMeetType.VIDEO;
-  var url = "";
+  var url = "https://d1.awsstatic.com/events/aws-hosted-events/2020/APAC/case-studies/case-study-logo-qiscus.5433a4b9da2693dd49766a971aac887ece8c6d18.png";
   var typeCaller;
   var roomId = "";
   var muted = false;
