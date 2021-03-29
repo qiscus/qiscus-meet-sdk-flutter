@@ -1,4 +1,4 @@
-## 0.0.2
+## 0.0.2-beta.1
 
 This is Beta Release Version
-Fixing Android Bug
+Fixing Script
