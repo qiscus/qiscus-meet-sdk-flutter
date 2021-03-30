@@ -28,8 +28,13 @@ end
 #### Info.plist
 Add NSCameraUsageDescription and NSMicrophoneUsageDescription to your
 Info.plist.
+Also Add UIBackgroundModes for Callkit
 
 ```text
+<key>UIBackgroundModes</key>
+<array>
+  <string>voip</string>
+</array>
 <key>NSCameraUsageDescription</key>
 <string>$(PRODUCT_NAME) MyApp needs access to your camera for meetings.</string>
 <key>NSMicrophoneUsageDescription</key>
@@ -241,4 +246,5 @@ _onError(error) {
 ### Closing a Meeting Programmatically
 ```dart
 QiscusMeet.endCall();
+
 ```
