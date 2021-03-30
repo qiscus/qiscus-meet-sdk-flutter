@@ -1,4 +1,8 @@
-## 0.0.2-beta.1
+## 0.0.2-beta.2
 
 This is Beta Release Version
-Fixing Script
+Add
+<key>UIBackgroundModes</key>
+<array>
+  <string>voip</string>
+</array>
