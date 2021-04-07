@@ -19,9 +19,9 @@ class QiscusMeet {
   }
 
   static MeetInfo call(String roomId, String displayName, String avatar,
-      String callKit, bool isMuted) {
+      String callKit, bool audioMuted, bool videoMuted) {
     return MeetInfo(url.toString(), QiscusMeetTypeCaller.CALLER, qiscusConfig,
-        roomId, displayName, avatar, callKit, isMuted);
+        roomId, displayName, avatar, callKit, audioMuted,videoMuted);
   }
 
   static MeetConfig config() {

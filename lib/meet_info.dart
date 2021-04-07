@@ -24,10 +24,12 @@ class MeetInfo {
   var displayName = "guest";
   var avatar = "";
   var type = QiscusMeetType.VIDEO;
-  var url = "https://d1.awsstatic.com/events/aws-hosted-events/2020/APAC/case-studies/case-study-logo-qiscus.5433a4b9da2693dd49766a971aac887ece8c6d18.png";
+  var url =
+      "https://d1.awsstatic.com/events/aws-hosted-events/2020/APAC/case-studies/case-study-logo-qiscus.5433a4b9da2693dd49766a971aac887ece8c6d18.png";
   var typeCaller;
   var roomId = "";
-  var muted = false;
+  var audioMuted = false;
+  var videooMuted = false;
   var callkit = "";
   static List<QiscusMeetListener> _listeners = <QiscusMeetListener>[];
   static Map<String, QiscusMeetListener> _perMeetingListeners = {};
@@ -44,7 +46,8 @@ class MeetInfo {
       String displayName,
       String avatar,
       String callkit,
-      bool isMuted) {
+      bool audioMuted,
+      bool videoMuted) {
     this.url = url;
     this.typeCaller = typeCaller;
     this.config = config;
@@ -52,7 +55,8 @@ class MeetInfo {
     this.displayName = displayName;
     this.avatar = avatar;
     this.callkit = callkit;
-    this.muted = isMuted;
+    this.audioMuted = audioMuted;
+    this.videooMuted = videoMuted;
   }
 
   void build() {
@@ -110,9 +114,9 @@ class MeetInfo {
         ..userDisplayName = displayName
         ..userAvatarURL = avatar
         ..userEmail = config.jwtConfig.email
-        ..audioOnly = true
-        ..audioMuted = true
-        ..videoMuted = true
+        ..audioOnly = false
+        ..audioMuted = audioMuted
+        ..videoMuted = videooMuted
         ..token = jwtToken
         ..featureFlag = featureFlag;
       assert(options != null, "options are null");
