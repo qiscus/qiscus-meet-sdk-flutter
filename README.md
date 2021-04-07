@@ -125,7 +125,7 @@ buildTypes {
 ```
 
 Then add a file in the same directory called proguard-rules.pro. See the example
-app's [proguard-rules.pro](example/android/app/proguard-rules.pro) file to know what to paste in.
+app's [proguard-rules.pro]("example/android/app/proguard-rules.pro") file to know what to paste in.
 
 *Note*
 If you do not create the proguard-rules.pro file, then your app will
@@ -151,7 +151,7 @@ W/unknown:ViewManagerPropertyUpdater: Could not find generated setter for class 
 ```
 
 
-##Setup Call
+## Setup Call
 
  @override
   void initState() {
@@ -176,7 +176,7 @@ _joinMeeting() async {
             nameText.text,
             "https://d1.awsstatic.com/events/aws-hosted-events/2020/APAC/case-studies/case-study-logo-qiscus.5433a4b9da2693dd49766a971aac887ece8c6d18.png",
             "Qiscus Meet : ${roomText.text}",
-            false)
+            false,false)
         .build();
   }
 <a name="qiscusmeetingoptions"></a>
@@ -193,8 +193,9 @@ _joinMeeting() async {
  ------------------ | --------- | ----------------- | ----------- |
 | roomId            | Yes       | N/A               | Unique room name that will be appended to serverURL. Valid characters: alphanumeric, dashes, and underscores. |
 | displayName       | Yes       | N/A               | User's display name. |
-| avatar            | Yes       | "Qiscus logo"     | User's avatar URL. |
-| isMuted           | Yes       | false             | Start meeting with audio muted. Can be turned on in meeting. |
+| avatar            | Yes       | "avatar url"      | User's avatar URL. |
+| audioMuted        | Yes       | false             | Start meeting with audio muted. Can be turned on in meeting. |
+| videoMuted        | Yes       | false             | Start meeting with video muted. Can be turned on in meeting. |
 
 
 ### Listening to Meeting Events
