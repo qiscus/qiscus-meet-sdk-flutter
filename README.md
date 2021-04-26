@@ -157,12 +157,14 @@ W/unknown:ViewManagerPropertyUpdater: Could not find generated setter for class 
   void initState() {
     super.initState();
     MeetInfo.addListener(QiscusMeetListener(
-        onConferenceWillJoin: _onConferenceWillJoin,
-        onConferenceJoined: _onConferenceJoined,
-        onConferenceTerminated: _onConferenceTerminated,
-        onPictureInPictureWillEnter: _onPictureInPictureWillEnter,
-        onPictureInPictureTerminated: _onPictureInPictureTerminated,
-        onError: _onError));
+               onConferenceWillJoin: _onConferenceWillJoin,
+               onConferenceJoined: _onConferenceJoined,
+               onConferenceTerminated: _onConferenceTerminated,
+               onPictureInPictureWillEnter: _onPictureInPictureWillEnter,
+               onPictureInPictureTerminated: _onPictureInPictureTerminated,
+               onParticipantJoined: _onParticipantJoined,
+               onParticipantLeft: _onParticipantLeft,
+               onError: _onError));
   }
 
 _joinMeeting() async {

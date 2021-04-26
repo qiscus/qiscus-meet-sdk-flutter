@@ -1,4 +1,4 @@
-## 0.0.3-beta.3
+## 0.0.3-beta.4
 
 This is Beta Release Version
-Add onParticipant Joined and Left
+Fix Bug onParticipant Joined and Left Android
