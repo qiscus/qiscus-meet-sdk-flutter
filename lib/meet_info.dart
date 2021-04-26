@@ -22,10 +22,10 @@ class MeetInfo {
   static const EventChannel _eventChannel =
       const EventChannel('qiscus_meet_events');
   var displayName = "guest";
-  var avatar = "";
-  var type = QiscusMeetType.VIDEO;
-  var url =
+  var avatar =
       "https://d1.awsstatic.com/events/aws-hosted-events/2020/APAC/case-studies/case-study-logo-qiscus.5433a4b9da2693dd49766a971aac887ece8c6d18.png";
+  var type = QiscusMeetType.VIDEO;
+  var url = "https://call.qiscus.com";
   var typeCaller;
   var roomId = "";
   var audioMuted = false;
@@ -53,6 +53,13 @@ class MeetInfo {
     this.config = config;
     this.roomId = roomId;
     this.displayName = displayName;
+    if (avatar != null || avatar != "" || avatar != '') {
+      this.avatar = avatar;
+    }
+    if (url != null || url != "" || url != '') {
+      this.url = url;
+    }
+
     this.avatar = avatar;
     this.callkit = callkit;
     this.audioMuted = audioMuted;
@@ -112,7 +119,9 @@ class MeetInfo {
         ..room = roomUrl
         ..serverURL = url
         ..userDisplayName = displayName
-        ..userAvatarURL = avatar
+        ..userAvatarURL = avatar != null
+            ? avatar
+            : "https://d1.awsstatic.com/events/aws-hosted-events/2020/APAC/case-studies/case-study-logo-qiscus.5433a4b9da2693dd49766a971aac887ece8c6d18.png"
         ..userEmail = config.jwtConfig.email
         ..audioOnly = false
         ..audioMuted = audioMuted
@@ -240,6 +249,14 @@ class MeetInfo {
         case "onPictureInPictureTerminated":
           if (listener.onPictureInPictureTerminated != null)
             listener.onPictureInPictureTerminated(message: message);
+          break;
+        case "onParticipantJoined":
+          if (listener.onParticipantJoined != null)
+            listener.onParticipantJoined(message: message);
+          break;
+        case "onParticipantLeft":
+          if (listener.onParticipantLeft != null)
+            listener.onParticipantLeft(message: message);
           break;
       }
     });

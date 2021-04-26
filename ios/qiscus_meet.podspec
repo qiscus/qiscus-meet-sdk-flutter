@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'qiscus_meet'
-  s.version          = '0.0.3-beta.1'
+  s.version          = '0.0.3-beta.3'
   s.summary          = 'Qiscus Meet iOS SDK'
   s.description      = <<-DESC
 Qiscus Meet is a WebRTC compatible, free and Open Source video conferencing system that provides browsers and mobile applications with Real Time Communications capabilities.

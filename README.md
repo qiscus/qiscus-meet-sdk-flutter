@@ -152,7 +152,7 @@ W/unknown:ViewManagerPropertyUpdater: Could not find generated setter for class 
 
 
 ## Setup Call
-
+```dart
  @override
   void initState() {
     super.initState();
@@ -179,7 +179,8 @@ _joinMeeting() async {
             false,false)
         .build();
   }
-<a name="qiscusmeetingoptions"></a>
+  ```
+<a name="qiscusmeetoptions"></a>
 
 ## Meet Jwt Config
 | Field             | Required  | Default           | Description |
@@ -209,9 +210,11 @@ Events supported
 | onConferenceTerminated | User has exited the conference. |
 | onPictureInPictureWillEnter | User entered PIP mode. |
 | onPictureInPictureTerminated | User exited PIP mode. |
+| onParticipantJoined | Detect Participant Joined |
+| onParticipantLeft | Detect Participant Left |
 | onError                | Error has occurred with listening to meeting events. |
 
-
+```dart
   @override
   void dispose() {
     super.dispose();
@@ -244,8 +247,7 @@ _onError(error) {
 }
 ```
 
-### Closing a Meeting Programmatically
+## Closing a Meeting Programmatically
 ```dart
 QiscusMeet.endCall();
-
 ```

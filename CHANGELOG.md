@@ -1,4 +1,4 @@
-## 0.0.3-beta.2
+## 0.0.3-beta.3
 
 This is Beta Release Version
-Add videoMuted
+Add onParticipant Joined and Left

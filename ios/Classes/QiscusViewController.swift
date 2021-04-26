@@ -134,6 +134,37 @@ extension QiscusViewController: JitsiMeetViewDelegate {
         }
         
     }
+
+     func participantLeft(_ data: [AnyHashable : Any]!) {
+        //        print("Participant Left")
+        var mutatedData = data
+        mutatedData?.updateValue("onParticipantLeft", forKey: "event")
+        self.eventSink?(mutatedData)
+
+//        DispatchQueue.main.async {
+//            self.pipViewCoordinator?.hide() { _ in
+//                self.cleanUp()
+//                self.dismiss(animated: true, completion: nil)
+//            }
+//        }
+
+    }
+    func participantJoined(_ data: [AnyHashable : Any]!) {
+        //        print("Participant Joined")
+        var mutatedData = data
+        mutatedData?.updateValue("onParticipantJoined", forKey: "event")
+        self.eventSink?(mutatedData)
+
+//        DispatchQueue.main.async {
+//            self.pipViewCoordinator?.hide() { _ in
+//                self.cleanUp()
+//                self.dismiss(animated: true, completion: nil)
+//            }
+//        }
+
+    }
+
+
     
     func enterPicture(inPicture data: [AnyHashable : Any]!) {
         //        print("CONFERENCE PIP IN")

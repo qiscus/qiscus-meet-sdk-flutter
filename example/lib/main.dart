@@ -34,6 +34,8 @@ class _MyAppState extends State<MyApp> {
         onConferenceTerminated: _onConferenceTerminated,
         onPictureInPictureWillEnter: _onPictureInPictureWillEnter,
         onPictureInPictureTerminated: _onPictureInPictureTerminated,
+        onParticipantJoined: _onParticipantJoined,
+        onParticipantLeft: _onParticipantLeft,
         onError: _onError));
   }
 
@@ -176,6 +178,21 @@ class _MyAppState extends State<MyApp> {
     debugPrint(
         "_onPictureInPictureTerminated broadcasted with message: $message");
   }
+
+   void _onParticipantJoined({message}) {
+     //Do anything when participant joined
+     debugPrint(
+        "_onParticipantJoined broadcasted with message: $message");
+  }
+
+   void _onParticipantLeft({message}) {
+    //Do anything when participant left
+    QiscusMeet.endCall();
+    debugPrint(
+        "_onParticipantLeft broadcasted with message: $message");
+  }
+
+
 
   _onError(error) {
     debugPrint("_onError broadcasted: $error");
