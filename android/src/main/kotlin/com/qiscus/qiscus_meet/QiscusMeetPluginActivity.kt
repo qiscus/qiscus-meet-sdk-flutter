@@ -97,6 +97,17 @@ class QiscusMeetPluginActivity : JitsiMeetActivity() {
         QiscusMeetEventStreamHandler.instance.onConferenceTerminated(extraData)
         super.onConferenceTerminated(extraData)
     }
+     override fun onParticipantJoined(extraData: HashMap<String, Any>?) {
+        Log.d(QISCUS_PLUGIN_TAG, String.format("JitsiMeetPluginActivity.onParticipantJoined: %s", extraData))
+        QiscusMeetEventStreamHandler.instance.onParticipantJoined(extraData)
+        super.onParticipantJoined(extraData)
+    }
+     override fun onParticipantLeft(extraData: HashMap<String, Any>?) {
+        Log.d(QISCUS_PLUGIN_TAG, String.format("JitsiMeetPluginActivity.onParticipantLeft: %s", extraData))
+        QiscusMeetEventStreamHandler.instance.onParticipantLeft(extraData)
+        super.onParticipantLeft(extraData)
+    }
+
 //    override fun onConferenceTerminated(data: MutableMap<String, Any>?) {
 //
 //        Log.d(JITSI_PLUGIN_TAG, String.format("JitsiMeetPluginActivity.onConferenceTerminated: %s", data))

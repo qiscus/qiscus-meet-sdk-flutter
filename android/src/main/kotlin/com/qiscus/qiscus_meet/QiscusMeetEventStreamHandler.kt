@@ -57,4 +57,18 @@ class QiscusMeetEventStreamHandler private constructor() : EventChannel.StreamHa
         eventSink?.success(data)
     }
 
+    fun onParticipantJoined(data: MutableMap<String, Any>?) {
+        Log.d(QISCUS_PLUGIN_TAG, "QiscusMeetEventStreamHandler.onParticipantJoined")
+        data?.put("event", "onParticipantJoined")
+        eventSink?.success(data)
+    }
+    fun onParticipantLeft(data: MutableMap<String, Any>?) {
+        Log.d(QISCUS_PLUGIN_TAG, "QiscusMeetEventStreamHandler.onParticipantLeft")
+        data?.put("event", "onParticipantLeft")
+        eventSink?.success(data)
+    }
+    
+  
+    
+
 }
