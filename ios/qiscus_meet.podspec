@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'qiscus_meet'
-  s.version          = '0.0.3'
+  s.version          = '0.0.4-beta.1'
   s.summary          = 'Qiscus Meet iOS SDK'
   s.description      = <<-DESC
 Qiscus Meet is a WebRTC compatible, free and Open Source video conferencing system that provides browsers and mobile applications with Real Time Communications capabilities.
@@ -15,7 +15,7 @@ Qiscus Meet is a WebRTC compatible, free and Open Source video conferencing syst
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'QiscusMeetFramework', '3.2.0'
+  s.dependency 'QiscusMeetFramework', '3.3.0'
   s.platform = :ios, '12.0'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
