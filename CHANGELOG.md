@@ -1,2 +1,2 @@
-## 0.0.3
-Stable Version
+## 0.0.4-beta.1
+Beta Version
