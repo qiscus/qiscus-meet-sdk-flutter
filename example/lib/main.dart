@@ -1,8 +1,6 @@
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qiscus_meet/feature_flag/feature_flag.dart';
 import 'package:qiscus_meet/meet_jwt_config.dart';
 import 'package:qiscus_meet/qiscus_meet.dart';
 import 'package:qiscus_meet/qiscus_meet_listener.dart';
@@ -36,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         onPictureInPictureTerminated: _onPictureInPictureTerminated,
         onParticipantJoined: _onParticipantJoined,
         onParticipantLeft: _onParticipantLeft,
+        onRecordingStatus: _onRecordingStatus,
         onError: _onError));
   }
 
@@ -49,7 +48,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+
         appBar: AppBar(
+          backgroundColor: Color.fromRGBO(1, 72, 108, 1),
           title: const Text('Qiscus Meet Sample'),
         ),
         body: Container(
@@ -97,7 +98,7 @@ class _MyAppState extends State<MyApp> {
                       "Join Meeting",
                       style: TextStyle(color: Colors.white),
                     ),
-                    color: Colors.blue,
+                    color: Color.fromRGBO(1, 72, 108, 1),
                   ),
                 ),
                 SizedBox(
@@ -132,27 +133,46 @@ class _MyAppState extends State<MyApp> {
   _joinMeeting() async {
     QiscusMeet.setup("meetstage-iec22sd", "https://call.qiscus.com");
     MeetJwtConfig meetJwtConfig = MeetJwtConfig();
-    meetJwtConfig.setEmail("marco@qiscus.com");
+    meetJwtConfig.email = "marco@qiscus.com";
     meetJwtConfig.build();
-    QiscusMeet.config().setJwtConfig(meetJwtConfig);
-    await QiscusMeet.call(
-            roomText.text,
-            nameText.text,
-            "https://d1.awsstatic.com/events/aws-hosted-events/2020/APAC/case-studies/case-study-logo-qiscus.5433a4b9da2693dd49766a971aac887ece8c6d18.png",
-            "Qiscus Meet: ${roomText.text.toString()}",
-            false,
-            false)
+    //Android Only
+    QiscusMeet
+        .config()
+        .autoRecording = true;
+    //iOS Only
+    QiscusMeet
+        .config()
+        .callKitName = "Qiscus Meet:${roomText.text.toString()}";
+    QiscusMeet
+        .config()
+        .jwtConfig = meetJwtConfig;
+    QiscusMeet.config().overflowMenu = true;
+    QiscusMeet.config().enableChat = false;
+    QiscusMeet.config().screenSharing = true;
+   QiscusMeet.call(
+      //room name
+        roomText.text,
+        //username
+        nameText.text,
+        //avatar
+        "https://d1.awsstatic.com/events/aws-hosted-events/2020/APAC/case-studies/case-study-logo-qiscus.5433a4b9da2693dd49766a971aac887ece8c6d18.png",
+        //audio muted
+        false,
+        //video muted
+        false)
         .build();
   }
 
   static final Map<RoomNameConstraintType, RoomNameConstraint>
-      customContraints = {
+  customContraints = {
     RoomNameConstraintType.MAX_LENGTH: new RoomNameConstraint((value) {
-      return value.trim().length <= 50;
+      return value
+          .trim()
+          .length <= 50;
     }, "Maximum room name length should be 30."),
     RoomNameConstraintType.FORBIDDEN_CHARS: new RoomNameConstraint((value) {
       return RegExp(r"[$€£]+", caseSensitive: false, multiLine: false)
-              .hasMatch(value) ==
+          .hasMatch(value) ==
           false;
     }, "Currencies characters aren't allowed in room names."),
   };
@@ -179,22 +199,22 @@ class _MyAppState extends State<MyApp> {
         "_onPictureInPictureTerminated broadcasted with message: $message");
   }
 
-   void _onParticipantJoined({message}) {
-     //Do anything when participant joined
-     debugPrint(
-        "_onParticipantJoined broadcasted with message: $message");
+  void _onParticipantJoined({message}) {
+    //Do anything when participant joined
+    debugPrint("_onParticipantJoined broadcasted with message: $message");
   }
 
-   void _onParticipantLeft({message}) {
+  void _onParticipantLeft({message}) {
     //Do anything when participant left
     QiscusMeet.endCall();
-    debugPrint(
-        "_onParticipantLeft broadcasted with message: $message");
+    debugPrint("_onParticipantLeft broadcasted with message: $message");
+  }
+  void _onRecordingStatus({message}) {
+    //Do anything when recording get response
+    debugPrint("_onRecordingStatus message: $message");
   }
 
-
-
-  _onError(error) {
+  void _onError(error) {
     debugPrint("_onError broadcasted: $error");
   }
 }
