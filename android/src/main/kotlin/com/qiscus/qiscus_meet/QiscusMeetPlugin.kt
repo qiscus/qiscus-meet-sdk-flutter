@@ -74,7 +74,7 @@ class QiscusMeetPlugin(): FlutterPlugin, MethodCallHandler ,ActivityAware {
     const val QISCUS_PLUGIN_TAG = "QISCUS_MEET_PLUGIN"
     const val QISCUS_METHOD_CHANNEL = "qiscus_meet"
     const val QISCUS_EVENT_CHANNEL = "qiscus_meet_events"
-    const val QISCUS_MEETING_CLOSE = "qiscus_MEETING_CLOSE"
+    const val QISCUS_MEETING_CLOSE = "QISCUS_MEETING_CLOSE"
   }
 
   /**
