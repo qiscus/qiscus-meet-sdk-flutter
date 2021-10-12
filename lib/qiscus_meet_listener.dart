@@ -7,6 +7,7 @@ class QiscusMeetListener {
   final Function({Map<dynamic, dynamic> message}) onPictureInPictureTerminated;
   final Function({Map<dynamic, dynamic> message}) onParticipantJoined;
   final Function({Map<dynamic, dynamic> message}) onParticipantLeft;
+  final Function({Map<dynamic, dynamic> message}) onRecordingStatus;
   final Function(dynamic error) onError;
 
   QiscusMeetListener(
@@ -17,5 +18,6 @@ class QiscusMeetListener {
       this.onPictureInPictureTerminated,
       this.onParticipantJoined,
       this.onParticipantLeft,
+      this.onRecordingStatus,
       this.onError});
 }
