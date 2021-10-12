@@ -48,5 +48,5 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation('com.qiscus.meet:meet-qiscus:3.3.0') { transitive = true }
+    implementation('com.qiscus.meet:meet-qiscus:3.9.1') { transitive = true }
 }
