@@ -188,7 +188,6 @@ _joinMeeting() async {
 | Field             | Required  | Default           | Description |
  ------------------ | --------- | ----------------- | ----------- |
 | email             | Yes       | N/A               | User's email |
-| displayName       | Yes       | N/A               | User's display name. |
 
 ### QiscusMeet Call Parameter
 
@@ -196,7 +195,7 @@ _joinMeeting() async {
  ------------------ | --------- | ----------------- | ----------- |
 | roomId            | Yes       | N/A               | Unique room name that will be appended to serverURL. Valid characters: alphanumeric, dashes, and underscores. |
 | displayName       | Yes       | N/A               | User's display name. |
-| avatar            | Yes       | "avatar url"      | User's avatar URL. |
+| avatar            | Yes       | "http://avatar url"      | User's avatar URL. |
 | audioMuted        | Yes       | false             | Start meeting with audio muted. Can be turned on in meeting. |
 | videoMuted        | Yes       | false             | Start meeting with video muted. Can be turned on in meeting. |
 
@@ -242,6 +241,12 @@ debugPrint("_onPictureInPictureWillEnter broadcasted with message: $message");
 
 _onPictureInPictureTerminated({message}) {
 debugPrint("_onPictureInPictureTerminated broadcasted with message: $message");
+}
+_onParticipantJoined({message}) {
+  debugPrint("_onParticipantJoined broadcasted");
+}
+_onParticipantLeft({message}) {
+  debugPrint("_onParticipantLeft broadcasted");
 }
 
 _onError(error) {
