@@ -9,12 +9,8 @@ class MeetJwtConfig {
   var sub = Uri.parse(QiscusMeet.url).host;
   var moderator = false;
   Map <String,Object> jwtPayload = new HashMap();
-
-  void setEmail(String email) {
-    this.email = email;
-  }
   void build() {
-    jwtPayload["appId"] = appId;
+    jwtPayload["app_id"] = appId;
     jwtPayload["email"] = email;
     jwtPayload["moderator"]= moderator;
     jwtPayload["iss"] = iss;
