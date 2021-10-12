@@ -26,6 +26,9 @@ class FeatureFlag {
   bool videoShareButtonEnabled;
   bool welcomePageEnabled;
   String callkitName;
+  bool autoRecording;
+  bool overFlowMenu;
+  bool screenSharing;
 
   int get resoulution {
     return _resolution;
@@ -144,6 +147,21 @@ class FeatureFlag {
     if (callkitName != null) {
       featureFlags[FeatureFlagHelper
           .featureFlags[FeatureFlagEnum.SET_CALLKIT_NAME]] = callkitName;
+    }
+    if (autoRecording != null) {
+      featureFlags[FeatureFlagHelper
+          .featureFlags[FeatureFlagEnum.AUTO_RECORDING]] = autoRecording;
+    }
+    if (overFlowMenu != null) {
+      featureFlags[FeatureFlagHelper
+          .featureFlags[FeatureFlagEnum.OVERFLOW_MENU_BUTTON]] = overFlowMenu;
+    }
+    if (screenSharing != null) {
+      featureFlags[FeatureFlagHelper
+              .featureFlags[FeatureFlagEnum.ANDROID_SCREEN_SHARING]] =
+          screenSharing;
+      featureFlags[FeatureFlagHelper
+          .featureFlags[FeatureFlagEnum.IOS_SCREEN_SHARING]] = screenSharing;
     }
 
     return featureFlags;

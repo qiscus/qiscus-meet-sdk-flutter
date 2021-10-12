@@ -92,5 +92,18 @@ enum FeatureFlagEnum {
 
   ///Set Callkit. To create custom callkit for iOS
   ///Default : ""
-  SET_CALLKIT_NAME
+  SET_CALLKIT_NAME,
+
+  ///Set Auto Recording. To start auto recording for Android Only
+  ///Default : false
+  AUTO_RECORDING,
+
+  ///Enable Overflow menu, default = false
+  OVERFLOW_MENU_BUTTON,
+
+  ///Enable Screen Sharing Android, default = false
+  ANDROID_SCREEN_SHARING,
+
+  ///Enable Screen Sharing iOS, default = false
+  IOS_SCREEN_SHARING
 }

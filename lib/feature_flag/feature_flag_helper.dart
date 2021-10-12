@@ -14,7 +14,7 @@ class FeatureFlagHelper {
     FeatureFlagEnum.INVITE_ENABLED: 'invite.enabled',
     FeatureFlagEnum.IOS_RECORDING_ENABLED: 'ios.recording.enabled',
     FeatureFlagEnum.KICK_OUT_ENABLED: 'kick-out.enabled',
-    FeatureFlagEnum.LIVE_STREAMING_ENABLED: 'live-streaming.enabled',
+    FeatureFlagEnum.LIVE_STREAMING_ENABLED:'live-streaming.enabled',
     FeatureFlagEnum.MEETING_NAME_ENABLED: 'meeting-name.enabled',
     FeatureFlagEnum.MEETING_PASSWORD_ENABLED: 'meeting-password.enabled',
     FeatureFlagEnum.PIP_ENABLED: 'pip.enabled',
@@ -26,6 +26,10 @@ class FeatureFlagHelper {
     FeatureFlagEnum.TOOLBOX_ALWAYS_VISIBLE: 'toolbox.alwaysVisible',
     FeatureFlagEnum.VIDEO_SHARE_BUTTON_ENABLED: 'video-share.enabled',
     FeatureFlagEnum.WELCOME_PAGE_ENABLED: 'welcomepage.enabled',
-    FeatureFlagEnum.SET_CALLKIT_NAME: 'setCallkitName'
+    FeatureFlagEnum.SET_CALLKIT_NAME: 'setCallkitName',
+    FeatureFlagEnum.AUTO_RECORDING: 'autoRecording.enabled',
+    FeatureFlagEnum.OVERFLOW_MENU_BUTTON: 'overflow-menu.enabled',
+    FeatureFlagEnum.ANDROID_SCREEN_SHARING: 'android.screensharing.enabled',
+    FeatureFlagEnum.IOS_SCREEN_SHARING: 'ios.screensharing.enabled'
   };
 }
