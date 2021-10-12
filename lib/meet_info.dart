@@ -4,10 +4,10 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io' as io;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:qiscus_meet/feature_flag/feature_flag.dart';
-import 'package:qiscus_meet/meet_jwt_config.dart';
 import 'package:qiscus_meet/qiscus_meet.dart';
 import 'package:qiscus_meet/qiscus_response.dart';
 
@@ -31,10 +31,12 @@ class MeetInfo {
   var audioMuted = false;
   var videooMuted = false;
   var callkit = "";
+  var recordingStatus = "";
   static List<QiscusMeetListener> _listeners = <QiscusMeetListener>[];
   static Map<String, QiscusMeetListener> _perMeetingListeners = {};
   static bool _hasInitialized = false;
   MeetConfig config;
+  static Map<String, String> _recordingListner = {};
 
   void setTypeCall(QiscusMeetType type) {}
 
@@ -45,7 +47,6 @@ class MeetInfo {
       String roomId,
       String displayName,
       String avatar,
-      String callkit,
       bool audioMuted,
       bool videoMuted) {
     this.url = url;
@@ -61,7 +62,7 @@ class MeetInfo {
     }
 
     this.avatar = avatar;
-    this.callkit = callkit;
+    this.callkit = config.callKitName;
     this.audioMuted = audioMuted;
     this.videooMuted = videoMuted;
   }
@@ -95,7 +96,7 @@ class MeetInfo {
   /// be removed when the meeting has ended
 
   Future<QiscusMeetResponse> call(
-      String appId, String userName, String jwtToken,
+      String appId, String userName, String jwtToken, recordingResponse,
       {QiscusMeetListener listener,
       Map<RoomNameConstraintType, RoomNameConstraint>
           roomNameConstraints}) async {
@@ -105,15 +106,21 @@ class MeetInfo {
       // Full list of feature flags (and defaults) available in the README
       FeatureFlag featureFlag = FeatureFlag();
       featureFlag.welcomePageEnabled = false;
+      featureFlag.overFlowMenu = config.overflowMenu;
+      featureFlag.screenSharing = config.screenSharing;
+      featureFlag.chatEnabled = config.enableChat;
+      featureFlag.meetingNameEnabled = config.enableRoomName;
       // Here is an example, disabling features for each platform
       if (io.Platform.isAndroid) {
         // Disable ConnectionService usage on Android to avoid issues (see README)
         featureFlag.callIntegrationEnabled = false;
+        featureFlag.autoRecording = config.autoRecording;
+        debugPrint("AUTO RECORDING ${config.autoRecording}");
       } else if (io.Platform.isIOS) {
         // Disable PIP on iOS as it looks weird
         featureFlag.pipEnabled = false;
+        featureFlag.callkitName = callkit;
       }
-      featureFlag.callkitName = callkit;
       var roomUrl = appId + "/" + roomId;
       var options = QiscusMeetOptions()
         ..room = roomUrl
@@ -231,8 +238,12 @@ class MeetInfo {
     _listeners.forEach((listener) {
       switch (message['event']) {
         case "onConferenceWillJoin":
-          if (listener.onConferenceWillJoin != null)
+          if (listener.onConferenceWillJoin != null) {
             listener.onConferenceWillJoin(message: message);
+          }
+          if (_recordingListner != null) {
+            listener.onRecordingStatus(message: _recordingListner);
+          }
           break;
         case "onConferenceJoined":
           if (listener.onConferenceJoined != null)
@@ -271,6 +282,9 @@ class MeetInfo {
         case "onConferenceWillJoin":
           if (listener.onConferenceWillJoin != null)
             listener.onConferenceWillJoin(message: message);
+          if (_recordingListner != null) {
+            listener.onRecordingStatus(message: _recordingListner);
+          }
           break;
         case "onConferenceJoined":
           if (listener.onConferenceJoined != null)
@@ -306,22 +320,52 @@ class MeetInfo {
   }
 
   Future<Void> generateToken(String name, String avatar) async {
-    Map<String, Object> objectPayload = config.getJwtConfig().getJwtPayload();
+    Map<String, Object> objectPayload = config.jwtConfig.getJwtPayload();
     if (avatar != null) {
       objectPayload['avatar'] = "$avatar";
     } else {}
     objectPayload['name'] = name;
     objectPayload['room'] = roomId;
-    var uri = "$url:9090/generate_url";
+    var uri = "$url:5050/generate_url";
     final http.Response response = await http.post(uri,
-        headers: <String, String>{'Content-Type': 'application/json'},
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer X6tMDYkJF7MVPQ32'
+        },
         body: json.encode(objectPayload));
     if (response.statusCode == 200) {
       var qiscusResponse = Qiscus_response.fromJson(jsonDecode(response.body));
       var token = qiscusResponse.token;
-      call(objectPayload["appId"], name, token);
+      if (io.Platform.isAndroid) {
+        if (config.autoRecording) {
+          getRecordingStatus(objectPayload["app_id"], name, token);
+        } else {
+          call(objectPayload["app_id"], name, token, "");
+        }
+      } else {
+        call(objectPayload["app_id"], name, token, "");
+      }
     } else {
       debugPrint("TOKEN ERROR : ${response.statusCode}");
+    }
+  }
+
+  Future<Void> getRecordingStatus(
+      String appID, String name, String token) async {
+    var uri = "$url:5050/api/recordings/$appID/status";
+    final http.Response response = await http.get(uri,
+        headers: <String, String>{'Content-Type': 'application/json'});
+    if (response.statusCode == 200) {
+      recordingStatus = jsonDecode(response.body);
+      call(appID, name, token, recordingStatus);
+      _recordingListner["message"] = "${response.body}";
+      _recordingListner["statusCode"] = "${response.statusCode}";
+      print("RECORDING STATUS:${response.body}");
+    } else {
+      call(appID, name, token, recordingStatus);
+      _recordingListner["message"] = "${response.body}";
+      _recordingListner["statusCode"] = "${response.statusCode}";
+      print("RECORDING ERROR : ${response.body}");
     }
   }
 }
